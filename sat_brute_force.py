@@ -4,17 +4,17 @@ from sat_parser import TokenType, Parser, Literal, Expr, Operation, stringify
 
 def get_literals(ast, literals=None):
     if literals is None:
-        literals = set()
+        literals = []
 
     if isinstance(ast, Literal):
-        literals.add(ast.literal)
+        literals.append(ast.literal)
     elif isinstance(ast, Operation):
         get_literals(ast.lhs, literals)
         get_literals(ast.rhs, literals)
     elif isinstance(ast, Expr):
         get_literals(ast.expr, literals)
 
-    return literals
+    return set(literals)
 
 
 def combinations(literals):
@@ -62,7 +62,7 @@ def print_combination(dic):
 source = input("> ")
 ast = Parser().parse(source)
 
-print(f"Processed input")
+print(f"\nProcessed input")
 print("¯" * 50)
 
 print(stringify(ast), end="\n\n")
