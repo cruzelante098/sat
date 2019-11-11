@@ -82,7 +82,7 @@ class Scanner:
     def __is_digit(self, c: str) -> bool:
         return c is not None and ('0' <= c <= '9')
 
-    def __is_alpha_numeric(self, c: Optional[str]) -> bool:
+    def __is_alpha_numeric(self, c: str) -> bool:
         return self.__is_alpha(c) or self.__is_digit(c)
 
     def __literal(self):
@@ -148,7 +148,7 @@ class Parser:
 
         if self.__match(TokenType.OR):
             term2 = self.__factor()
-            biterm = Operation(term1, term2, TokenType.AND)
+            biterm = Operation(term1, term2, TokenType.OR)
 
         while self.__match(TokenType.OR):
             term2 = self.__term()
